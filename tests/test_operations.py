@@ -6,6 +6,9 @@ def test_add():
 def test_substract():
     assert operation.subtract(2, 1) == 1
 
+def test_multiply():
+    assert operation.multiply(2, 2) == 4
+
 def test_divide_by_zero():
     try:
         operation.divide(5, 0)

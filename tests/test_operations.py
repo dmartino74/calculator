@@ -16,3 +16,17 @@ def test_divide_by_zero():
         assert True
     else:
         assert False
+
+
+
+def test_xor():
+    assert operation.xor(5, 3) == 6     # 0b0101 ^ 0b0011 = 0b0110
+
+def test_and_op():
+    assert operation.and_op(5, 3) == 1  # 0b0101 & 0b0011 = 0b0001
+
+def test_or_op():
+    assert operation.or_op(5, 3) == 7   # 0b0101 | 0b0011 = 0b0111
+
+def test_not_op():
+    assert operation.not_op(5) == -6    # ~5 = -6 in two's complement

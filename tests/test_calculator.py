@@ -1,0 +1,10 @@
+if __name__ == "__main__":
+    print("Add:", calculate("add", 2, 3))
+    print("Subtract:", calculate("subtract", 5, 2))
+    print("Multiply:", calculate("multiply", 4, 3))
+    print("Divide:", calculate("divide", 10, 2))
+    print("Power:", calculate("power", 2, 3))
+    print("Square:", calculate("square", 5))
+    print("Sqrt:", calculate("sqrt", 16))
+    print("Mod:", calculate("mod", 10, 3))
+    print("Floor Divide:", calculate("floor_divide", 10, 3))

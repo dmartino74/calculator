@@ -1,50 +1,60 @@
 import pytest
-from app.calculator.calculator import calculate, run_calculator
+from app.calculation import Calculation
+from app.calculator import run_calculator
 from unittest.mock import patch
 
-# Dispatcher tests
+# Dispatcher logic tests via Calculation class
 def test_add():
-    assert calculate("add", 2, 3) == 5
+    calc = Calculation("add", 2, 3)
+    assert calc.result == 5
 
 def test_subtract():
-    assert calculate("subtract", 5, 2) == 3
+    calc = Calculation("subtract", 5, 2)
+    assert calc.result == 3
 
 def test_multiply():
-    assert calculate("multiply", 4, 3) == 12
+    calc = Calculation("multiply", 4, 3)
+    assert calc.result == 12
 
 def test_divide():
-    assert calculate("divide", 10, 2) == 5
+    calc = Calculation("divide", 10, 2)
+    assert calc.result == 5
 
 def test_divide_by_zero():
     with pytest.raises(ZeroDivisionError):
-        calculate("divide", 5, 0)
+        Calculation("divide", 5, 0)
 
 def test_power():
-    assert calculate("power", 2, 3) == 8
+    calc = Calculation("power", 2, 3)
+    assert calc.result == 8
 
 def test_square():
-    assert calculate("square", 4) == 16
+    calc = Calculation("square", 4)
+    assert calc.result == 16
 
 def test_sqrt():
-    assert calculate("sqrt", 9) == 3
+    calc = Calculation("sqrt", 9)
+    assert calc.result == 3
 
 def test_sqrt_negative():
     with pytest.raises(ValueError):
-        calculate("sqrt", -1)
+        Calculation("sqrt", -1)
 
 def test_mod():
-    assert calculate("mod", 10, 3) == 1
+    calc = Calculation("mod", 10, 3)
+    assert calc.result == 1
 
 def test_floor_divide():
-    assert calculate("floor_divide", 10, 3) == 3
+    calc = Calculation("floor_divide", 10, 3)
+    assert calc.result == 3
 
 def test_floor_divide_by_zero():
     with pytest.raises(ZeroDivisionError):
-        calculate("floor_divide", 5, 0)
+        Calculation("floor_divide", 5, 0)
 
 def test_unsupported_operation():
     with pytest.raises(ValueError) as excinfo:
-        calculate("log", 10, 2)
+        Calculation("log", 10, 2)
     assert "Unsupported operation" in str(excinfo.value)
 
 # REPL logic tests

@@ -1,29 +1,6 @@
-from app.operation import (
-    add, subtract, multiply, divide,
-    power, square, sqrt, mod, floor_divide
-)
+# app/calculator.py
 
-def calculate(op, *args):
-    if op == "add":
-        return add(*args)
-    elif op == "subtract":
-        return subtract(*args)
-    elif op == "multiply":
-        return multiply(*args)
-    elif op == "divide":
-        return divide(*args)
-    elif op == "power":
-        return power(*args)
-    elif op == "square":
-        return square(args[0])
-    elif op == "sqrt":
-        return sqrt(args[0])
-    elif op == "mod":
-        return mod(*args)
-    elif op == "floor_divide":
-        return floor_divide(*args)
-    else:
-        raise ValueError(f"Unsupported operation: {op}")
+from app.calculation import Calculation
 
 def run_calculator():
     print("Welcome to the calculator!")
@@ -34,13 +11,13 @@ def run_calculator():
     try:
         if op in ["square", "sqrt"]:
             a = float(input("Enter one number: "))
-            result = calculate(op, a)
+            calc = Calculation(op, a)
         else:
             a = float(input("Enter first number: "))
             b = float(input("Enter second number: "))
-            result = calculate(op, a, b)
+            calc = Calculation(op, a, b)
 
-        print(f"Result: {result}")
+        print(f"Result: {calc.result}")
     except ValueError as ve:
         if "Unsupported operation" in str(ve):
             print(str(ve))  # e.g. "Unsupported operation: log"
@@ -53,10 +30,3 @@ def run_calculator():
 
 if __name__ == "__main__":  # pragma: no cover
     run_calculator()
-
-def test_run_calculator_unexpected_error(capsys):
-    # Simulate a crash by passing a string that causes float() to fail
-    with patch("builtins.input", side_effect=["add", "two", "three"]):
-        run_calculator()
-        captured = capsys.readouterr()
-        assert "Invalid input. Please enter numeric values." in captured.out

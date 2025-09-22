@@ -1,1 +1,1 @@
-from .calculation import CalculationFactory, Calculation
+from .calculation import Calculation

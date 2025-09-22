@@ -1,47 +1,62 @@
-from app.operation import operation
+from app.operation import (
+    add, subtract, multiply, divide,
+    power, square, sqrt, mod, floor_divide
+)
 
 def calculate(op, *args):
     if op == "add":
-        return operation.add(*args)
+        return add(*args)
     elif op == "subtract":
-        return operation.subtract(*args)
+        return subtract(*args)
     elif op == "multiply":
-        return operation.multiply(*args)
+        return multiply(*args)
     elif op == "divide":
-        return operation.divide(*args)
+        return divide(*args)
     elif op == "power":
-        return operation.power(*args)
+        return power(*args)
     elif op == "square":
-        return operation.square(args[0])
+        return square(args[0])
     elif op == "sqrt":
-        return operation.sqrt(args[0])
+        return sqrt(args[0])
     elif op == "mod":
-        return operation.mod(*args)
+        return mod(*args)
     elif op == "floor_divide":
-        return operation.floor_divide(*args)
+        return floor_divide(*args)
     else:
         raise ValueError(f"Unsupported operation: {op}")
-    
 
-
-
-
-
-if __name__ == "__main__":
+def run_calculator():
     print("Welcome to the calculator!")
     print("Available operations: add, subtract, multiply, divide, power, square, sqrt, mod, floor_divide")
 
     op = input("Enter operation: ").strip()
 
-    if op in ["square", "sqrt"]:
-        a = float(input("Enter one number: "))
-        result = calculate(op, a)
-    else:
-        a = float(input("Enter first number: "))
-        b = float(input("Enter second number: "))
-        result = calculate(op, a, b)
+    try:
+        if op in ["square", "sqrt"]:
+            a = float(input("Enter one number: "))
+            result = calculate(op, a)
+        else:
+            a = float(input("Enter first number: "))
+            b = float(input("Enter second number: "))
+            result = calculate(op, a, b)
 
-    print(f"Result: {result}")
+        print(f"Result: {result}")
+    except ValueError as ve:
+        if "Unsupported operation" in str(ve):
+            print(str(ve))  # e.g. "Unsupported operation: log"
+        else:
+            print("Invalid input. Please enter numeric values.")
+    except ZeroDivisionError:
+        print("Error: Cannot divide by zero.")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
 
+if __name__ == "__main__":  # pragma: no cover
+    run_calculator()
 
-
+def test_run_calculator_unexpected_error(capsys):
+    # Simulate a crash by passing a string that causes float() to fail
+    with patch("builtins.input", side_effect=["add", "two", "three"]):
+        run_calculator()
+        captured = capsys.readouterr()
+        assert "Invalid input. Please enter numeric values." in captured.out

@@ -18,14 +18,21 @@ def divide(a, b):
 
 
 
-def xor(a, b):
-    return a ^ b
+def power(a, b):
+    return a ** b
 
-def and_op(a, b):
-    return a & b
+def square(a):
+    return a ** 2
 
-def or_op(a, b):
-    return a | b
+def sqrt(a):
+    if a < 0:
+        raise ValueError("Cannot take square root of negative number")
+    return a ** 0.5
 
-def not_op(a):
-    return ~a
+def mod(a, b):
+    return a % b
+
+def floor_divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero")
+    return a // b

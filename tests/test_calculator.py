@@ -1,5 +1,5 @@
 import pytest
-from app.calculator import calculate, run_calculator
+from app.calculator.calculator import calculate, run_calculator
 from unittest.mock import patch
 
 # Dispatcher tests
